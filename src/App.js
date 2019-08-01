@@ -1,5 +1,9 @@
 import React from 'react';
 
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+const RESET = 'RESET';
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -8,26 +12,19 @@ class App extends React.Component {
     }
   }
 
-  handleClickIncrement = () => {
-    this.setState(state => {
-      return {
-        count: state.count + 1
-      }
-    })
-  }
 
-  handleClickDecrement = () => {
+  handleClick = (action) => {
     this.setState(state => {
-      return {
-        count: state.count - 1
+      if(action === INCREMENT) {
+        state.count += 1
+      } else if (action === DECREMENT) {
+        state.count -= 1
+      } else {
+        state.count = 0
       }
-    })
-  }
 
-  handleClickReset = () => {
-    this.setState(state => {
       return {
-        count: state.count = 0
+        ...state
       }
     })
   }
@@ -36,10 +33,16 @@ class App extends React.Component {
   render() {
     return (
         <div>
-          <button onClick={this.handleClickIncrement}>Click (+)</button>
+          <button onClick={() => {
+            this.handleClick(INCREMENT)
+          }}>Click (+)</button>
           <div>{this.state.count}</div>
-          <button onClick={this.handleClickDecrement}>Click (-)</button>
-          <button onClick={this.handleClickReset}>Click (reset)</button>
+          <button onClick={() => {
+            this.handleClick(DECREMENT)
+          }}>Click (-)</button>
+          <button onClick={() => {
+            this.handleClick(RESET)
+          }}>Click (reset)</button>
 
         </div>
     )
